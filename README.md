@@ -96,7 +96,7 @@ Dockerfiles and scripts for development using the Isaac ROS suite.
         ```
     2. docker files:
         ```bash
-        git clone --depth 1 -b main https://github.com/amer-adam/docker.git ~/workspaces/isaac_ros-dev/src/docker
+        git clone --depth 1 -b master https://github.com/amer-adam/docker.git ~/workspaces/isaac_ros-dev/src/docker
         ```
 
 8. Build and run:
