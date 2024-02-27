@@ -12,8 +12,12 @@
 echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 source /opt/ros/${ROS_DISTRO}/setup.bash
 
-sudo apt-get update
-rosdep update
+# sudo apt-get update
+# rosdep update
+
+# source install/local_setup.bash 
+# ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyACM0 -v4
+
 
 # Restart udev daemon
 sudo service udev restart
