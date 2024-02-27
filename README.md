@@ -2,37 +2,63 @@
 
 Dockerfiles and scripts for development using the Isaac ROS suite.
 
-## Overview
+## On x86_64 platforms:
 
-The [Isaac ROS Common](https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_common)
-repository contains a number of scripts and Dockerfiles to help
-streamline development and testing with the Isaac ROS suite.
+1. Install the ``nvidia-container-toolkit`` using the [instructions](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installing-with-apt)
+    1. Configure the production repository:
+        ```bash
+        curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+        ```
 
-<div align="center"><a class="reference internal image-reference" href="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_common/isaac_ros_common_tools.png/"><img alt="Isaac ROS DevOps tools" src="https://media.githubusercontent.com/media/NVIDIA-ISAAC-ROS/.github/main/resources/isaac_ros_docs/repositories_and_packages/isaac_ros_common/isaac_ros_common_tools.png/" width="auto"/></a></div>
+    2. Update the packages list from the repository:
+        ```bash
+        sudo apt-get update
+        ```
 
-The Docker images included in this package provide pre-compiled binaries
-for ROS 2 Humble on Ubuntu 20.04 Focal.
+    3. Install the NVIDIA Container Toolkit packages:
+        ```bash
+        sudo apt-get install -y nvidia-container-toolkit
+        ```
 
-Additionally, on x86_64 platforms, Docker containers allow you to
-quickly set up a sensitive set of frameworks and dependencies to ensure
-a smooth experience with Isaac ROS packages. The Dockerfiles for this
-platform are based on the version 22.03 image from [Deep Learning
-Frameworks Containers](https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html).
-On Jetson platforms, JetPack manages all of these dependencies for you.
+2. Configure ``nvidia-container-toolkit`` for Docker using the [instructions](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#configuring-docker)
+    1. Configure the container runtime by using the nvidia-ctk command:
+        ```bash
+        sudo nvidia-ctk runtime configure --runtime=docker
+        ```
+        > The nvidia-ctk command modifies the /etc/docker/daemon.json file on the host. The file is updated so that Docker can use the NVIDIA Container Runtime.
 
-Use of Docker images enables CI|CD systems to scale with DevOps work and
-run automated testing in cloud native platforms on Kubernetes.
 
-For solutions to known issues, see the [Troubleshooting](https://nvidia-isaac-ros.github.io/troubleshooting/index.html) section.
+3. Restart Docker:
+   ```bash
+   sudo systemctl daemon-reload && sudo systemctl restart docker
+   ```
 
----
+4. Install [Git LFS](https://git-lfs.github.com/) to pull down all large files:
+      ```bash
+      sudo apt-get install git-lfs
+      ```
+      ```bash
+      git lfs install --skip-repo
+      ```
 
-## Documentation
+5. Create a ROS 2 workspace for experimenting with Isaac ROS:
+    ```bash
+    mkdir -p  ~/workspaces/isaac_ros-dev/src
+    ```
+    ```bash
+    echo "export ISAAC_ROS_WS=${HOME}/workspaces/isaac_ros-dev/" >> ~/.bashrc
+    ```
+    ```bash
+    source ~/.bashrc
+    ```
+    > We expect to use the ``ISAAC_ROS_WS`` environmental variable to refer to this ROS 2 workspace directory, in the future.
 
-Please visit the [Isaac ROS Documentation](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_common/index.html) to learn how to use this repository.
-
----
-
-## Latest
-
-Update 2023-10-18: Updated for Isaac ROS 2.0.0.
+6. Clone the repos:
+    1. isaac_ros_common:
+    ```bash
+    git clone --depth 1 -b main https://github.com/amer-adam/isaac_ros_common.git ~/workspaces/isaac_ros-dev/src/isaac_ros_common
+    ```
+    2. docker files:
+    ```bash
+    git clone --depth 1 -b main https://github.com/amer-adam/docker.git ~/workspaces/isaac_ros-dev/src/docker
+    ```
