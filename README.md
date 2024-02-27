@@ -104,7 +104,7 @@ Dockerfiles and scripts for development using the Isaac ROS suite.
     cd ~/workspaces/isaac_ros-dev && ./src/isaac_ros_common/scripts/run_dev.sh
     ```
     > First time building will take some time (_5456s on my laptop_). After that will take less than one minute
-    > _~~good luck soldier~~_
+    > _~~good luck soldier~~_ :fearful:
 
 1. Run some tests:
     1. test microros with usb 
