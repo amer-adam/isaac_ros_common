@@ -10,14 +10,23 @@
 
 # Build ROS dependency
 echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
-source /opt/ros/${ROS_DISTRO}/setup.bash
+echo "source /workspaces/isaac_ros-dev/install/setup.bash " >> ~/.bashrc
+echo "export ROS_LOCALHOST_ONLY=1" >> ~/.bashrc
 
+# echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
+source /opt/ros/${ROS_DISTRO}/setup.bash
+export ROS_LOCALHOST_ONLY=1
+source install/setup.bash 
 # sudo apt-get update
 # rosdep update
 
-# source install/local_setup.bash 
 # ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyACM0 -v4
 
+# echo 1 | sudo update-alternatives --config cuda
+# sudo rm -rf /usr/local/cuda-12.3 /usr/local/cuda-12 
+
+export PATH=/usr/local/cuda-11.8/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 # Restart udev daemon
 sudo service udev restart

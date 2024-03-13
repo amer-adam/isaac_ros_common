@@ -189,6 +189,7 @@ if [[ -f "$DOCKER_ARGS_FILE" ]]; then
         DOCKER_ARGS+=($(eval "echo $arg | envsubst"))
     done
 fi
+    # -v /home/amer/TensorRT-YOLOv8-ByteTrack:/workspaces/isaac_ros-dev/src/TensorRT-YOLOv8-ByteTrack \
 
 # Run container from image
 print_info "Running $CONTAINER_NAME"
