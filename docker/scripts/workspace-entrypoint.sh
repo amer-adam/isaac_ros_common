@@ -18,6 +18,11 @@ source /opt/ros/${ROS_DISTRO}/setup.bash
 # source install/local_setup.bash 
 # ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyACM0 -v4
 
+# export PATH=/usr/local/cuda-11.4/bin${PATH:+:${PATH}}
+
+# export LD_LIBRARY_PATH=/usr/local/cuda-11.4/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+export PATH="$HOME/.local/bin:$PATH"
 
 # Restart udev daemon
 sudo service udev restart
