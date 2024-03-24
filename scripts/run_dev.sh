@@ -128,20 +128,20 @@ fi
 
 BASE_IMAGE_KEY=$PLATFORM.user
 if [[ ! -z "${IMAGE_KEY}" ]]; then
-    BASE_IMAGE_KEY=$PLATFORM.$IMAGE_KEY
+   BASE_IMAGE_KEY=$PLATFORM.$IMAGE_KEY
 
-    # If the configured key does not have .user, append it last
-    if [[ $IMAGE_KEY != *".user"* ]]; then
-        BASE_IMAGE_KEY=$BASE_IMAGE_KEY.user
-    fi
+   # If the configured key does not have .user, append it last
+   if [[ $IMAGE_KEY != *".user"* ]]; then
+       BASE_IMAGE_KEY=$BASE_IMAGE_KEY.user
+   fi
 fi
 
 print_info "Building $BASE_IMAGE_KEY base as image: $BASE_NAME using key $BASE_IMAGE_KEY"
 $ROOT/build_base_image.sh $BASE_IMAGE_KEY $BASE_NAME '' '' ''
 
 if [ $? -ne 0 ]; then
-    print_error "Failed to build base image: $BASE_NAME, aborting."
-    exit 1
+   print_error "Failed to build base image: $BASE_NAME, aborting."
+   exit 1
 fi
 
 # Map host's display socket to docker
