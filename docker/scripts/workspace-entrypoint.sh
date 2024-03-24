@@ -12,8 +12,11 @@
 echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 echo "source /workspaces/isaac_ros-dev/install/setup.bash " >> ~/.bashrc
 echo "export ROS_LOCALHOST_ONLY=1" >> ~/.bashrc
+echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
+# echo " export PATH='/home/admin/.local/bin:$PATH'" >> ~/.bashrc
+# echo "eval "$(register-python-argcomplete3 ros2)"" >> ~/.bashrc
+# echo "eval "$(register-python-argcomplete3 colcon)"" >> ~/.bashrc
 
-# echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
 source /opt/ros/${ROS_DISTRO}/setup.bash
 export ROS_LOCALHOST_ONLY=1
 source install/setup.bash 
@@ -28,7 +31,11 @@ source install/setup.bash
 export PATH=/usr/local/cuda-11.8/bin${PATH:+:${PATH}}
 export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
+sudo usb_resetter --reset-all
 # Restart udev daemon
 sudo service udev restart
 
+colcon build --symlink-install
+
+sudo usb_resetter --reset-all
 $@
